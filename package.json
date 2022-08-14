@@ -1,7 +1,21 @@
 {
+  "author": "Paola Gamarra",
   "name": "md-links",
   "version": "0.1.0",
   "engines": {
     "node": ">=16.x"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "fetch": "^1.1.0",
+    "node": "^18.7.0",
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "eslint": "^8.21.0",
+    "stylelint": "^14.10.0",
+    "stylelint-config-standard": "^27.0.0"
   }
 }
