@@ -32,16 +32,38 @@ const getLinks = (file, path) => {
     })
     return arrayObjectsLinks;
 }
-const validate = (obj) => {
-    return fetch(obj.href).then(Response => {
-        obj.status = Response.status;
-        obj.ok = Response.ok;
-        return obj;
-    }).catch(error => {
-        obj.status = 404;
-        obj.ok = false;
-        return obj;
+const validate = (objts) => {
+    const val = objts.map((elem) => {
+        const statusData = fetch(elem.href).then((Response) => {
+            if (Response.status < 400) {
+                return {
+                    ...elem,
+                    status: Response.status,
+                    statusText: Response.statusText
+                };
+            }
+            return {
+                ...element,
+                status: res.status,
+                statusText: 'FAIL',
+            };
+        }).catch(error => ({
+            ...elem,
+            status: 'ERROR',
+            statusText: 'FAIL',
+        }));
+        return statusData;
     });
+    return Promise.all(val);
+};
+const stats = (objts) => {
+    const uniqueData = new Set(objts);
+    let uniqueArray = [...uniqueData];
+
+    return ({
+        total: objts.length,
+        unique: uniqueArray.length,
+    })
 }
 module.exports = {
     getData,
@@ -52,4 +74,5 @@ module.exports = {
     getFileExtension,
     getLinks,
     validate,
+    stats,
 };

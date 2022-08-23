@@ -1,38 +1,52 @@
 const utils = require('./utils.js');
 const Path = require('path');
-const fetch = require('node-fetch');
-const { resolve } = require('path');
-const { resolveSoa } = require('dns');
 
-function mdLinks(path, options) {
+const mdLinks = (path, options = {}) => {
+  return new Promise((resolve, reject) => {
 
-  if (!utils.existPath(path)) {
-    return console.log("la ruta no existe");
-  }
-  if (!utils.isAbsolute(path)) {
-    path = utils.getAbsolute(path)
-  }
-  if (options) {
+    if (!utils.existPath(path)) {
+      resolve("la ruta no existe");
+    }
+    if (!utils.isAbsolute(path)) {
+      path = utils.getAbsolute(path)
+    }
     const urlS = utils.getData(path);
-    const datos = urlS.map(elem => utils.validate(elem));
-    return Promise.all(datos).then(resolve => {
-      console.log(resolve);
-    });
-  };
-  console.log(datos);
-  return datos;
-  //console.log("esta: " + urlRevision);
-};
+    if (options.validate) {
+      utils.validate(urlS).then((files) => {
+        resolve(files);
+      })
+    }
+    if (options.stats) {
+      resolve(utils.stats(urlS))
+    }
+  })
+}
 
-// const path1 = utils.getAbsolute('prueba2.md')
-// console.log('entro aqui', path1);
-console.log(mdLinks('prueba2.md', true));
-utils.validate({
-  text: 'https://www.facebook.com/',
-  href: 'https://www.facebook45.com/',
-  path: 'D:\\Laboratoria\\Cuarto proyecto\\LIM018-md-links\\prueba2.md'
-});
+mdLinks('D:\\Laboratoria\\Cuarto proyecto\\LIM018-md-links\\prueba5.md', { stats: true }).then(resolve => {
+  console.log(resolve)
+})
+// const datosr = utils.validate([
+//   {
+//     text: 'Google',
+//     href: 'https://google.com',
+//     path: 'D:\\Laboratoria\\Cuarto proyecto\\LIM018-md-links\\prueba2.md'
+//   },
+//   {
+//     text: 'Node.js',
+//     href: 'https://nodejs.org/',
+//     path: 'D:\\Laboratoria\\Cuarto proyecto\\LIM018-md-links\\prueba2.md'
+//   },
+//   {
+//     text: 'GitHub',
+//     href: 'https://github76.com/',
+//     path: 'D:\\Laboratoria\\Cuarto proyecto\\LIM018-md-links\\prueba2.md'
+//   },
+//   {
+//     text: 'https://www.facebook.com/',
+//     href: 'https://www.facebook.com/',
+//     path: 'D:\\Laboratoria\\Cuarto proyecto\\LIM018-md-links\\prueba2.md'
+//   }
+// ])
+//console.log(datosr);
 
-module.exports = () => {
-  // ...
-};
+module.exports = { mdLinks, }
