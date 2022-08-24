@@ -1,5 +1,6 @@
 const utils = require('../src/utils.js');
 const fetch = require('node-fetch');
+jest.mock('node-fetch', () => jest.fn())
 const mdLinks = require('../src/index.js')
 //const utils2 = require('./_mocks_/node-fetch.ja')
 
@@ -23,6 +24,11 @@ const resultValidate = [
   }
 ]
 const resultStats = { total: 1, unique: 1 }
+const resultFileStats = [
+  { total: 5, unique: 5 },
+  { total: 4, unique: 4 },
+  { total: 1, unique: 1 }
+];
 
 describe('Ruta Existente', () => {
   it('Si la ruta existe devuelve true', () => {
@@ -58,8 +64,8 @@ describe('Devolver links con datos', () => {
 
 describe('Validate mdLinks', () => {
   it('El metodo busca dentro del archivo y retorna todas las rutas', () => {
-    const resultado = mdLinks.mdLinks(('prueba.md'), { validate: true });
-    resultado.then(resp => expect(resp).toStrictEqual(resultValidate))
+    const resultado = mdLinks.mdLinks(('prueba5.md'), { validate: true });
+    resultado.catch(resp => expect(resp).toStrictEqual('la ruta no existe'))
   })
 });
 
@@ -73,7 +79,34 @@ describe('Stats mdLinks', () => {
 describe('ruta inexistente mdLinks', () => {
   it('El metodo devuelve el valor de que no existe la ruta', () => {
     const resultado = mdLinks.mdLinks(('prueba5.md'), { stats: true });
-    resultado.then(resp => expect(resp).toStrictEqual('la ruta no existe'))
+    resultado.catch(resp => expect(resp).toStrictEqual('la ruta no existe'))
   })
+});
+
+describe('Stats mdLinks con folders', () => {
+  it('El metodo busca dentro del archivo y retorna todas las rutas', () => {
+    const resultado = mdLinks.mdLinks(('pruebas1'), { stats: true });
+    resultado.then(resp => expect(resp).toStrictEqual(resultFileStats))
+  })
+});
+
+describe('MDLINKS', () => {
+  it('MD-LINKS validate true', (done) => {
+    fetch.mockResolvedValueOnce({ status: 200, statusText: 'OK' });
+    mdLinks.mdLinks('prueba.md', { validate: true }).then((link) => {
+      expect(link).toEqual(resultValidate);
+      done();
+    })
+  })
+});
+
+describe('MDLINKS false', () => {
+  it('MD-LINKS validate true, con url que no existe', () => {
+    fetch.mockResolvedValueOnce({ status: 200, statusText: 'OK' });
+    mdLinks.mdLinks('prueba5.md', { validate: true }).catch((link) => {
+      expect(link).toStrictEqual('la ruta no existe');
+
+    })
+  });
 });
 

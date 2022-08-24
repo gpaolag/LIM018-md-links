@@ -3,28 +3,44 @@ const Path = require('path');
 
 const mdLinks = (path, options = {}) => {
   return new Promise((resolve, reject) => {
+    //console.log(utils.getAbsolute(path));
+    if (utils.existPath(utils.getAbsolute(path))) {
 
-    if (!utils.existPath(path)) {
-      resolve("la ruta no existe");
+      if (!utils.isAbsolute(path)) {
+        path = utils.getAbsolute(path)
+      }
+      if (utils.isFolder(path)) {
+        const listFiles = utils.readFolder(path)
+        const promiseList = listFiles.map((pathFile) => mdLinks(pathFile, options));
+        resolve(Promise.all(promiseList))
+      }
+      if (options.validate) {
+        const urlS = utils.getData(path);
+        if (urlS === 'No es un archivo md') {
+          reject('No es un archivo md')
+        }
+        utils.validate(urlS).then((files) => {
+          resolve(files);
+        })
+      }
+      if (options.stats) {
+        const urlS = utils.getData(path);
+        if (urlS === 'No es un archivo md') {
+          reject('No es un archivo md')
+        }
+        resolve(utils.stats(urlS))
+      }
+    } else {
+      reject("la ruta no existe");
     }
-    if (!utils.isAbsolute(path)) {
-      path = utils.getAbsolute(path)
-    }
-    const urlS = utils.getData(path);
-    if (options.validate) {
-      utils.validate(urlS).then((files) => {
-        resolve(files);
-      })
-    }
-    if (options.stats) {
-      resolve(utils.stats(urlS))
-    }
-  })
+
+  }).catch(err => console.log(err));
 }
 
-mdLinks('D:\\Laboratoria\\Cuarto proyecto\\LIM018-md-links\\prueba5.md', { stats: true }).then(resolve => {
-  console.log(resolve)
-})
+// mdLinks('pruebas1', { stats: true }).then(resolve => {
+//   console.log(resolve)
+// })
+//console.log(utils.isFolder('D:\\Laboratoria\\Cuarto proyecto\\LIM018-md-links'));
 // const datosr = utils.validate([
 //   {
 //     text: 'Google',

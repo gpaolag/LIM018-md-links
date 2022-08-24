@@ -13,8 +13,10 @@ const isFolder = (ruta) => fs.statSync(ruta).isDirectory();
 const getFileExtension = (ruta) => Path.extname(ruta)
 
 const getData = (path) => {
+    if (getFileExtension(path) !== '.md') {
+        return 'No es un archivo md'
+    }
     const fileData = fs.readFileSync(path, 'utf8');
-
     const allLinks = getLinks(fileData, path)
     return allLinks;
 }
@@ -65,6 +67,22 @@ const stats = (objts) => {
         unique: uniqueArray.length,
     })
 }
+
+const readFolder = (path) => {
+    let paths = [];
+    const fileList = fs.readdirSync(path);
+    fileList.forEach((file) => {
+        rutaAll = Path.join(path, file);
+        if (isFolder(rutaAll)) {
+            const paths2 = readFolder(rutaAll)
+            paths = paths.concat(paths2)
+        }
+        else if (getFileExtension(rutaAll) === '.md') {
+            paths.push(rutaAll)
+        }
+    })
+    return paths
+}
 module.exports = {
     getData,
     existPath,
@@ -75,4 +93,5 @@ module.exports = {
     getLinks,
     validate,
     stats,
+    readFolder,
 };

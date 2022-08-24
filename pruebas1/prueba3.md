@@ -5,4 +5,3 @@ herramienta usando [Node.js](https://nodejs.org/), que lea y analice archivos
 en formato `Markdown`, para verificar los links que contengan y reportar
 algunas estadísticas.
 Tenemos una prueba de encontrar [GitHub](https://github76.com/) teniendo en cuenta un nuevo link (https://www.facebook.com/)
-[Markdown](http://community.laboratoria.la/t/modulos-librerias-paquetes-frameworks-cual-es-la-diferencia/175)
