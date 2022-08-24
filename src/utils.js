@@ -34,6 +34,7 @@ const getLinks = (file, path) => {
     })
     return arrayObjectsLinks;
 }
+// Opciones validate
 const validate = (objts) => {
     const val = objts.map((elem) => {
         const statusData = fetch(elem.href).then((Response) => {
@@ -58,6 +59,7 @@ const validate = (objts) => {
     });
     return Promise.all(val);
 };
+// Opcion stats
 const stats = (objts) => {
     const uniqueData = new Set(objts);
     let uniqueArray = [...uniqueData];
@@ -68,6 +70,7 @@ const stats = (objts) => {
     })
 }
 
+// Leer directorios y revisar dentro de forma recursiva
 const readFolder = (path) => {
     let paths = [];
     const fileList = fs.readdirSync(path);

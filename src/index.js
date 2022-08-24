@@ -40,29 +40,4 @@ const mdLinks = (path, options = {}) => {
 // mdLinks('pruebas1', { stats: true }).then(resolve => {
 //   console.log(resolve)
 // })
-//console.log(utils.isFolder('D:\\Laboratoria\\Cuarto proyecto\\LIM018-md-links'));
-// const datosr = utils.validate([
-//   {
-//     text: 'Google',
-//     href: 'https://google.com',
-//     path: 'D:\\Laboratoria\\Cuarto proyecto\\LIM018-md-links\\prueba2.md'
-//   },
-//   {
-//     text: 'Node.js',
-//     href: 'https://nodejs.org/',
-//     path: 'D:\\Laboratoria\\Cuarto proyecto\\LIM018-md-links\\prueba2.md'
-//   },
-//   {
-//     text: 'GitHub',
-//     href: 'https://github76.com/',
-//     path: 'D:\\Laboratoria\\Cuarto proyecto\\LIM018-md-links\\prueba2.md'
-//   },
-//   {
-//     text: 'https://www.facebook.com/',
-//     href: 'https://www.facebook.com/',
-//     path: 'D:\\Laboratoria\\Cuarto proyecto\\LIM018-md-links\\prueba2.md'
-//   }
-// ])
-//console.log(datosr);
-
 module.exports = { mdLinks, }
