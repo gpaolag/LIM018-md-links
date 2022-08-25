@@ -1,12 +1,16 @@
 const { resolve } = require('path');
 const mdLinks2 = require('./index.js')
 const utils = require('./utils.js')
+const chalk = require('chalk')
 
 let inputPath = process.argv[2];
 
 const options = process.argv;
 const mdLinksStats = (inputPath) => {
     mdLinks2.mdLinks(inputPath, { stats: true }).then(result => {
+        console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+        console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
+        console.log(chalk.bgHex('#ffdf00').black.bold.underline('|' + '              📊  LINKS ENCONTRADOS:                   ' + '|' + '\n'));
         if (utils.isFolder(utils.getAbsolute(inputPath))) {
             const arrNew = result.reduce((x, y) => x.concat(y), [])
             let total = 0;
@@ -15,43 +19,63 @@ const mdLinksStats = (inputPath) => {
                 total = total + element.total;
                 unique = unique + element.unique;
             })
-            console.log('TOTAL: ', total);
-            console.log('UNIQUE: ', unique);
+            console.log(chalk.bgHex('#fff').black.bold('📶 TOTAL:  '), chalk.green.bold(total));
+            console.log(chalk.bgHex('#fff').black.bold('♈ UNIQUE: '), chalk.green.bold(unique));
+            console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+            console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
         } else {
-            console.log('TOTAL: ', result.total);
-            console.log('UNIQUE: ', result.unique);
+            console.log(chalk.bgHex('#fff').black.bold('📶 TOTAL:  '), chalk.green.bold(result.total));
+            console.log(chalk.bgHex('#fff').black.bold('♈ UNIQUE: '), chalk.green.bold(result.unique));
+            console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+            console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
         }
     }).catch(err => console.log(err));
 }
 const mdLinksDefault = (inputPath) => {
     mdLinks2.mdLinks(inputPath, { validate: true }).then(result => {
         if (utils.isFolder(utils.getAbsolute(inputPath))) {
-            console.log('LINKS ENCONTRADOS:');
+            console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+            console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
+            console.log(chalk.bgHex('#ffdf00').black.bold.underline('|' + '              📜  LINKS ENCONTRADOS:                   ' + '|' + '\n'));
             const arrNew = result.reduce((x, y) => x.concat(y), [])
             arrNew.forEach(element => {
-                console.log(element.href, ' ', element.text);
+                console.log('📌 ' + element.href, ' ', element.text);
             });
+            console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+            console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
         } else {
-            console.log('LINKS ENCONTRADOS:');
+            console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+            console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
+            console.log(chalk.bgHex('#ffdf00').black.bold.underline('|' + '              📜  LINKS ENCONTRADOS:                   ' + '|' + '\n'));
             result.forEach(element => {
-                console.log(element.href, ' ', element.text);
+                console.log('📌 ' + element.href, ' ', element.text);
             });
+            console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+            console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
         }
     }).catch(err => console.log(err));
 }
 const mdLinksValidate = (inputPath) => {
     mdLinks2.mdLinks(inputPath, { validate: true }).then(result => {
         if (utils.isFolder(utils.getAbsolute(inputPath))) {
-            console.log('LINKS ENCONTRADOS:');
+            console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+            console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
+            console.log(chalk.bgHex('#ffdf00').black.bold.underline('|' + '              📜  LINKS ENCONTRADOS:                   ' + '|' + '\n'));
             const arrNew = result.reduce((x, y) => x.concat(y), [])
             arrNew.forEach(element => {
-                console.log(element.href, ' ', element.status, ' ', element.statusText, ' ', element.text);
+                console.log('📌 ' + element.href, ' ', element.status, ' ', element.statusText, ' ', element.text);
             });
+            console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+            console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
         } else {
-            console.log('LINKS ENCONTRADOS:');
+            console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+            console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
+            console.log(chalk.bgHex('#ffdf00').black.bold.underline('|' + '              📜  LINKS ENCONTRADOS:                   ' + '|' + '\n'));
             result.forEach(element => {
-                console.log(element.href, ' ', element.status, ' ', element.statusText, ' ', element.text);
+                console.log('📌 ' + element.href, ' ', element.status, ' ', element.statusText, ' ', element.text);
             });
+            console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+            console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
         }
     }).catch(err => console.log(err));
 }
@@ -73,6 +97,9 @@ const mdLinksCombinate = (inputPath) => {
             });
         }
         mdLinks2.mdLinks(inputPath, { stats: true }).then(result => {
+            console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+            console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
+            console.log(chalk.bgHex('#ffdf00').black.bold.underline('|' + '              📊  LINKS ENCONTRADOS:                   ' + '|' + '\n'));
             if (utils.isFolder(utils.getAbsolute(inputPath))) {
                 const arrNew = result.reduce((x, y) => x.concat(y), [])
                 let total = 0;
@@ -81,13 +108,17 @@ const mdLinksCombinate = (inputPath) => {
                     total = total + element.total;
                     unique = unique + element.unique;
                 })
-                console.log('TOTAL: ', total);
-                console.log('UNIQUE: ', unique);
-                console.log('BROKEN: ', broken);
+                console.log(chalk.bgHex('#fff').black.bold('📶 TOTAL: '), chalk.green.bold(total));
+                console.log(chalk.bgHex('#fff').black.bold('♈ UNIQUE: '), chalk.green.bold(unique));
+                console.log(chalk.bgHex('#fff').black.bold('❌ BROKEN: '), chalk.red.bold(broken));
+                console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+                console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
             } else {
-                console.log('TOTAL: ', result.total);
-                console.log('UNIQUE: ', result.unique);
-                console.log('BROKEN: ', broken);
+                console.log(chalk.bgHex('#fff').black.bold('📶 TOTAL: '), chalk.green.bold(result.total));
+                console.log(chalk.bgHex('#fff').black.bold('♈ UNIQUE: '), chalk.green.bold(result.unique));
+                console.log(chalk.bgHex('#fff').black.bold('❌ BROKEN: '), chalk.red.bold(broken));
+                console.log(chalk.hex('#ff5800').bold('_________________________________________________________'));
+                console.log(chalk.hex('#ff5800').bold('---------------------------------------------------------'));
             }
         }).catch(err => console.log(err));
     }).catch(err => console.log(err));
