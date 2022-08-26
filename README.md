@@ -17,7 +17,11 @@ herramienta usando [Node.js](https://nodejs.org/), que lea y analice archivos
 en formato `Markdown`, para verificar los links que contengan y reportar
 algunas estadísticas.
 
-![md-links]()
+EJEMPLO --validate --stats
+![md-links](https://github.com/gpaolag/LIM018-md-links/blob/main/images/combinado.jpeg)
+
+EJEMPLO --validate 
+![md-links2](https://github.com/gpaolag/LIM018-md-links/blob/main/images/validate.jpeg)
 
 ## 2. Resumen del proyecto
 
