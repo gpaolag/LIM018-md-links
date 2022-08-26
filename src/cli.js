@@ -1,3 +1,4 @@
+#!/usr/bin/env nodeL
 const { resolve } = require('path');
 const mdLinks2 = require('./index.js')
 const utils = require('./utils.js')

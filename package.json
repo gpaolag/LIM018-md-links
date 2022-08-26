@@ -1,24 +1,34 @@
 {
   "author": "Paola Gamarra <glenypaola.7@gmail.com>",
   "name": "md-links",
-  "version": "0.1.0",
+  "version": "0.1.0", 
+  "correo electrónico" : "glenypaola.7@gmail.com"  ,
+  
   "engines": {
     "node": ">=16.x"
   },
   "description": "Libreria que analiza archivos en formato Markdown, para verificar los links que se encuentre y mostrar sus estadísticas.",
-  "main": "src/index.js",
+  "main": "src/cli.js",
   "directories": {
     "test": "test"
   },
+  "keywords": [
+    "md-Links",
+    "Markdown",
+    "links"
+  ],
   "scripts": {
-    "test": "jest --coverage",
-    "start": " node src/index.js"
+    "test": "jest --coverage"
+  },
+  "bin": {
+    "md-links": "./src/cli.js"
   },
   "dependencies": {
     "chalk": "^4.1.2",
     "fetch": "^1.1.0",
     "node": "^18.7.0",
-    "node-fetch": "^2.6.7"
+    "node-fetch": "^2.6.7",
+    "nodemon": "^2.0.15"
   },
   "devDependencies": {
     "eslint": "^8.21.0",
