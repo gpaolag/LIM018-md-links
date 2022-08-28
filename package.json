@@ -1,23 +1,33 @@
 {
   "author": "Paola Gamarra <glenypaola.7@gmail.com>",
-  "name": "md-links",
+  "name": "md-links-pgam",
   "version": "0.1.0", 
   "correo electrónico" : "glenypaola.7@gmail.com"  ,
-  
+  "license": "ISC", 
   "engines": {
     "node": ">=16.x"
   },
   "description": "Libreria que analiza archivos en formato Markdown, para verificar los links que se encuentre y mostrar sus estadísticas.",
-  "main": "src/cli.js",
+  "main": "src/index.js",
   "directories": {
     "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gpaolag/LIM018-md-links"
   },
   "keywords": [
     "md-Links",
     "Markdown",
     "links"
   ],
+  "bugs": {
+    "url": "https://github.com/gpaolag/LIM018-md-links",
+    "email": "glenypaola.7@gmail.com"
+  },
   "scripts": {
+    "eslint": "eslint src/**/*.js --fix",
+    "start": "node ./src/index.js",
     "test": "jest --coverage"
   },
   "bin": {
@@ -28,10 +38,14 @@
     "fetch": "^1.1.0",
     "node": "^18.7.0",
     "node-fetch": "^2.6.7",
-    "nodemon": "^2.0.15"
+    "eslint-import-resolver-node": "^0.3.6",
+    "eslint-module-utils": "^2.7.3",
+    "eslint-scope": "^7.1.1",
+    "eslint-utils": "^3.0.0",
+    "eslint-visitor-keys": "^3.3.0"
   },
   "devDependencies": {
-    "eslint": "^8.21.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "jest": "^28.1.0"
   }
 }

@@ -1,8 +1,8 @@
-#!/usr/bin/env nodeL
-const { resolve } = require('path');
-const mdLinks2 = require('./index.js')
-const utils = require('./utils.js')
-const chalk = require('chalk')
+#! /usr/bin/env node
+
+const mdLinks2 = require('./index.js');
+const utils = require('./utils.js');
+const chalk = require('chalk');
 
 let inputPath = process.argv[2];
 
